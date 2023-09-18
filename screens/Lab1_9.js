@@ -31,10 +31,10 @@ export default function Lab1_9({ navigation }) {
     const textDarkLight = darkMode ? '#FFFFFF' : '#4B534B'
 
     const handleInput = (props) => {
-        if (props === '+' || props === '-' || props === '*' || props === '/') {
+        if (props === '+' || props === '-' || props === '*' || props === '/' || props === '.') {
             Vibration.vibrate(35)
             setCurrentNumber(currentNumber + props)
-        } else if (props === 1 || props === 2 || props === 3 || props === 4 || props === 5 || props === 6 || props === 7 || props === 8 || props === 9) {
+        } else if (props === 0 || props === 1 || props === 2 || props === 3 || props === 4 || props === 5 || props === 6 || props === 7 || props === 8 || props === 9) {
             Vibration.vibrate(35)
             setCurrentNumber(currentNumber + props)
         }
