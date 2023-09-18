@@ -18,6 +18,7 @@ import Lab1_5 from './screens/Lab1_5'
 import Lab1_6 from './screens/Lab1_6'
 import Lab1_7 from './screens/Lab1_7'
 import Lab1_8 from './screens/Lab1_8'
+import Lab1_9 from './screens/Lab1_9'
 import CustomNavigationBar from './components/CustomNavigationBar'
 
 
@@ -46,7 +47,7 @@ export default function App() {
     <PaperProvider>
       <NavigationContainer>
         <Stack.Navigator
-          initialRouteName='Lab1_1'
+          initialRouteName='Lab1_9'
           screenOptions={{
             header: (props) => <CustomNavigationBar {...props} />,
           }}
@@ -59,7 +60,9 @@ export default function App() {
           <Stack.Screen name="Lab1_6" component={Lab1_6} />
           <Stack.Screen name="Lab1_7" component={Lab1_7} />
           <Stack.Screen name="Lab1_8" component={Lab1_8} />
-          {/* <Stack.Screen name="Lab1_2" component={Lab1_8} /> */}
+          <Stack.Screen name="Lab1_9" component={Lab1_9} />
+
+
         </Stack.Navigator>
       </NavigationContainer>
     </PaperProvider>

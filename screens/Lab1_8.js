@@ -90,8 +90,8 @@ export default function Lab1_8({ navigation }) {
                     }}
                     ItemSeparatorComponent={() => <View style={styles.separator} />}
                 />
+                <Button onPress={() => navigation.navigate("Lab1_9")}>Next</Button>
             </SafeAreaView>
-
         </View>
     )
 }
