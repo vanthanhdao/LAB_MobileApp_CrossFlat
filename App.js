@@ -9,7 +9,7 @@ import Child from './components/Child'
 import { useState } from 'react'
 import { Banner, PaperProvider } from 'react-native-paper'
 import { NavigationContainer } from '@react-navigation/native'
-import { createNativeStackNavigator } from '@react-navigation/native-stack'
+// import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import Lab1_1 from './screens/Lab1_1'
 import Lab1_2 from './screens/Lab1_2'
 import Lab1_3 from './screens/Lab1_3'
@@ -19,10 +19,16 @@ import Lab1_6 from './screens/Lab1_6'
 import Lab1_7 from './screens/Lab1_7'
 import Lab1_8 from './screens/Lab1_8'
 import Lab1_9 from './screens/Lab1_9'
+import HomeScreen from './screens/HomeScreen'
+import DetailsScreen from './screens/DetailsScreen'
 import CustomNavigationBar from './components/CustomNavigationBar'
+import { createDrawerNavigator } from '@react-navigation/drawer'
+import CustomDrawerContent from './components/CustomDrawerContent';
 
 
-const Stack = createNativeStackNavigator();
+// const Stack = createNativeStackNavigator();
+
+const Drawer = createDrawerNavigator();
 
 export default function App() {
 
@@ -44,28 +50,28 @@ export default function App() {
 
 
     //Demo Stack Navigation, App Bar
-    <PaperProvider>
-      <NavigationContainer>
-        <Stack.Navigator
-          initialRouteName='Lab1_9'
-          screenOptions={{
-            header: (props) => <CustomNavigationBar {...props} />,
-          }}
-        >
-          <Stack.Screen name="Lab1_1" component={Lab1_1} />
-          <Stack.Screen name="Lab1_2" component={Lab1_2} />
-          <Stack.Screen name="Lab1_3" component={Lab1_3} />
-          <Stack.Screen name="Lab1_4" component={Lab1_4} />
-          <Stack.Screen name="Lab1_5" component={Lab1_5} />
-          <Stack.Screen name="Lab1_6" component={Lab1_6} />
-          <Stack.Screen name="Lab1_7" component={Lab1_7} />
-          <Stack.Screen name="Lab1_8" component={Lab1_8} />
-          <Stack.Screen name="Lab1_9" component={Lab1_9} />
+    // <PaperProvider>
+    //   <NavigationContainer>
+    //     <Stack.Navigator
+    //       initialRouteName='Lab1_1'
+    //       screenOptions={{
+    //         header: (props) => <CustomNavigationBar {...props} />,
+    //       }}
+    //     >
+    //       <Stack.Screen name="Lab1_1" component={Lab1_1} />
+    //       <Stack.Screen name="Lab1_2" component={Lab1_2} />
+    //       <Stack.Screen name="Lab1_3" component={Lab1_3} />
+    //       <Stack.Screen name="Lab1_4" component={Lab1_4} />
+    //       <Stack.Screen name="Lab1_5" component={Lab1_5} />
+    //       <Stack.Screen name="Lab1_6" component={Lab1_6} />
+    //       <Stack.Screen name="Lab1_7" component={Lab1_7} />
+    //       <Stack.Screen name="Lab1_8" component={Lab1_8} />
+    //       <Stack.Screen name="Lab1_9" component={Lab1_9} />
 
 
-        </Stack.Navigator>
-      </NavigationContainer>
-    </PaperProvider>
+    //     </Stack.Navigator>
+    //   </NavigationContainer>
+    // </PaperProvider>
 
 
     // Demo Style
@@ -190,7 +196,17 @@ export default function App() {
     // </View>
 
 
-
+    <View style={styles.container}>
+      <NavigationContainer>
+        <Drawer.Navigator
+          initialRouteName="Home"
+          drawerContent={(props) => <CustomDrawerContent {...props} />}
+        >
+          <Drawer.Screen name="Home" component={HomeScreen} />
+          <Drawer.Screen name="Detail" component={DetailsScreen} />
+        </Drawer.Navigator>
+      </NavigationContainer>
+    </View>
 
   )
 
