@@ -7,29 +7,83 @@ import ListView from './components/ListView'
 import Animations from './components/Animations'
 import Child from './components/Child'
 import { useState } from 'react'
-import { Banner, PaperProvider } from 'react-native-paper'
+import { Banner, PaperProvider, Appbar } from 'react-native-paper'
 import { NavigationContainer } from '@react-navigation/native'
-// import { createNativeStackNavigator } from '@react-navigation/native-stack'
-import Lab1_1 from './screens/Lab1_1'
-import Lab1_2 from './screens/Lab1_2'
-import Lab1_3 from './screens/Lab1_3'
-import Lab1_4 from './screens/Lab1_4'
-import Lab1_5 from './screens/Lab1_5'
-import Lab1_6 from './screens/Lab1_6'
-import Lab1_7 from './screens/Lab1_7'
-import Lab1_8 from './screens/Lab1_8'
-import Lab1_9 from './screens/Lab1_9'
-import HomeScreen from './screens/HomeScreen'
-import DetailsScreen from './screens/DetailsScreen'
-import CustomNavigationBar from './components/CustomNavigationBar'
-import { createDrawerNavigator } from '@react-navigation/drawer'
-import CustomDrawerContent from './components/CustomDrawerContent';
+import { createNativeStackNavigator } from '@react-navigation/native-stack'
+import { ContactScreen, FavoriteScreen, AccountScreen, ProfileScreen } from './screens/indexScreens'
+// import CustomNavigationBar from './components/CustomNavigationBar'
+// import { createDrawerNavigator } from '@react-navigation/drawer'
+// import CustomDrawerContent from './components/CustomDrawerContent';
+import CustomMenu from './components/CustomMenu'
+import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import color from './utility/color'
+import OptionScreen from './screens/OptionScreen'
+import { MaterialIcons } from '@expo/vector-icons';
 
 
-// const Stack = createNativeStackNavigator();
 
-const Drawer = createDrawerNavigator();
+const Stack = createNativeStackNavigator();
+const ContactsScreens = () => {
+  return (
 
+    <Stack.Navigator initialRouteName='Contacts'>
+      <Stack.Screen name='Contacts' component={ContactScreen} />
+      <Stack.Screen name='Profile' component={ProfileScreen}
+        options={({ route }) => {
+          const { contact } = route.params;
+          const { name } = contact;
+          return {
+            title: name.split(' ')[0],
+            headerTintColor: 'white',
+            headerStyle: {
+              backgroundColor: color.blue,
+            }
+          }
+        }}
+      />
+    </Stack.Navigator>
+
+  )
+}
+
+const FavoritessScreens = () => {
+  return (
+
+    <Stack.Navigator initialRouteName='Favorites'>
+      <Stack.Screen name='Favorites' component={FavoriteScreen} />
+      <Stack.Screen name='Profile' component={ProfileScreen} />
+    </Stack.Navigator>
+
+  )
+}
+
+const AccountScreens = ({ navigation }) => {
+  return (
+
+    <Stack.Navigator initialRouteName='Account'>
+      <Stack.Screen name='Account' component={AccountScreen}
+        options={{
+          headerTitle: "Me",
+          headerTintColor: "white",
+          headerStyle: {
+            backgroundColor: color.blue,
+          },
+          headerRight: () => (
+            <MaterialIcons name="settings" size={24} style={{ color: 'white', marginRight: 10 }}
+              onPress={() => navigation.navigate('Options')}
+            />
+          )
+        }} />
+      <Stack.Screen name='Options' component={OptionScreen} options={{ title: 'Options' }} />
+    </Stack.Navigator>
+
+  )
+}
+
+// const Drawer = createDrawerNavigator();
+
+const Tab = createMaterialBottomTabNavigator();
 export default function App() {
 
   // Demo props 
@@ -44,34 +98,81 @@ export default function App() {
 
   //Demo Banner Paper
   // const [visiable, setVisiable] = useState(true)
-
+  const [isNavBarVisible, setNavBarVisible] = useState(false);
+  const [titleAppbar, setTitleAppbar] = useState("Contacts")
 
   return (
 
-
     //Demo Stack Navigation, App Bar
-    // <PaperProvider>
-    //   <NavigationContainer>
-    //     <Stack.Navigator
-    //       initialRouteName='Lab1_1'
-    //       screenOptions={{
-    //         header: (props) => <CustomNavigationBar {...props} />,
-    //       }}
-    //     >
-    //       <Stack.Screen name="Lab1_1" component={Lab1_1} />
-    //       <Stack.Screen name="Lab1_2" component={Lab1_2} />
-    //       <Stack.Screen name="Lab1_3" component={Lab1_3} />
-    //       <Stack.Screen name="Lab1_4" component={Lab1_4} />
-    //       <Stack.Screen name="Lab1_5" component={Lab1_5} />
-    //       <Stack.Screen name="Lab1_6" component={Lab1_6} />
-    //       <Stack.Screen name="Lab1_7" component={Lab1_7} />
-    //       <Stack.Screen name="Lab1_8" component={Lab1_8} />
-    //       <Stack.Screen name="Lab1_9" component={Lab1_9} />
+    <PaperProvider>
+
+      {/* <Appbar.Header>
+
+        <Appbar.BackAction />
+        <Appbar.Content title={titleAppbar} />
+        <View>
+          <CustomMenu isVisible={isNavBarVisible} onDismiss={() => setNavBarVisible(false)} />
+        </View>
+        <Appbar.Action icon="menu" onPress={() => setNavBarVisible(true)} />
+
+      </Appbar.Header> */}
+
+      <NavigationContainer>
+        <Tab.Navigator
+          initialRouteName="ContactScreen"
+          activeColor="#e91e63"
+          barStyle={{ backgroundColor: '#9A86CF' }}
+        >
+          <Tab.Screen
+            name="ContactScreen"
+            listeners={{
+              tabPress: (e) => {
+                setTitleAppbar("Contacts");
+              },
+            }}
+            component={ContactsScreens}
+            options={{
+              tabBarLabel: 'Contacts',
+              tabBarIcon: ({ color }) => (
+                <MaterialCommunityIcons name="phone" color={color} size={26} />
+              ),
+            }}
+          />
+          <Tab.Screen
+            listeners={{
+              tabPress: (e) => {
+                setTitleAppbar("Favorites");
+              },
+            }}
+            name="FavoriteScreen"
+            component={FavoritessScreens}
+            options={{
+              tabBarLabel: 'Favorites',
+              tabBarIcon: ({ color }) => (
+                <MaterialCommunityIcons name="heart" color={color} size={26} />
+              ),
+            }}
+          />
+          <Tab.Screen
+            listeners={{
+              tabPress: (e) => {
+                setTitleAppbar("Account");
+              },
+            }}
+            name="AccountScreen"
+            component={AccountScreens}
+            options={{
+              tabBarLabel: 'Account',
+              tabBarIcon: ({ color }) => (
+                <MaterialCommunityIcons name="account" color={color} size={26} />
+              ),
+            }}
+          />
+        </Tab.Navigator>
+      </NavigationContainer>
 
 
-    //     </Stack.Navigator>
-    //   </NavigationContainer>
-    // </PaperProvider>
+    </PaperProvider>
 
 
     // Demo Style
@@ -195,18 +296,18 @@ export default function App() {
     //   </ImageBackground>
     // </View>
 
-
-    <View style={styles.container}>
-      <NavigationContainer>
-        <Drawer.Navigator
-          initialRouteName="Home"
-          drawerContent={(props) => <CustomDrawerContent {...props} />}
-        >
-          <Drawer.Screen name="Home" component={HomeScreen} />
-          <Drawer.Screen name="Detail" component={DetailsScreen} />
-        </Drawer.Navigator>
-      </NavigationContainer>
-    </View>
+    //Demo Drawer
+    // <View style={styles.container}>
+    //   <NavigationContainer>
+    //     <Drawer.Navigator
+    //       initialRouteName="Home"
+    //       drawerContent={(props) => <CustomDrawerContent {...props} />}
+    //     >
+    //       <Drawer.Screen name="Home" component={HomeScreen} />
+    //       <Drawer.Screen name="Detail" component={DetailsScreen} />
+    //     </Drawer.Navigator>
+    //   </NavigationContainer>
+    // </View>
 
   )
 
