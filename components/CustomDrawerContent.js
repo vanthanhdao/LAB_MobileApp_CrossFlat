@@ -11,21 +11,31 @@ export default function CustomDrawerContent({ navigation }) {
             <Drawer.Section title='Menu'>
                 <Drawer.Item
                     icon="home"
-                    label="Home"
-                    active={active === "home"}
+                    label="Contact"
+                    active={active === "Contact"}
                     onPress={() => {
-                        setActive("home")
-                        navigation.navigate("Home")
+                        setActive("Contact")
+                        navigation.navigate("Contact")
                     }}
                 />
 
                 <Drawer.Item
-                    icon="star"
-                    label="Detail"
-                    active={active === "detail"}
+                    icon="heart"
+                    label="Favorite"
+                    active={active === "Favorite"}
                     onPress={() => {
-                        setActive("detail")
-                        navigation.navigate("Detail")
+                        setActive("Favorite")
+                        navigation.navigate("Favorite")
+                    }}
+                />
+
+                <Drawer.Item
+                    icon="account"
+                    label="Account"
+                    active={active === "Account"}
+                    onPress={() => {
+                        setActive("Account")
+                        navigation.navigate("Account")
                     }}
                 />
             </Drawer.Section>

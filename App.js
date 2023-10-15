@@ -11,9 +11,9 @@ import { Banner, PaperProvider, Appbar } from 'react-native-paper'
 import { NavigationContainer } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { ContactScreen, FavoriteScreen, AccountScreen, ProfileScreen } from './screens/indexScreens'
-// import CustomNavigationBar from './components/CustomNavigationBar'
-// import { createDrawerNavigator } from '@react-navigation/drawer'
-// import CustomDrawerContent from './components/CustomDrawerContent';
+import CustomNavigationBar from './components/CustomNavigationBar'
+import { createDrawerNavigator } from '@react-navigation/drawer'
+import CustomDrawerContent from './components/CustomDrawerContent';
 import CustomMenu from './components/CustomMenu'
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -27,7 +27,7 @@ const Stack = createNativeStackNavigator();
 const ContactsScreens = () => {
   return (
 
-    <Stack.Navigator initialRouteName='Contacts'>
+    <Stack.Navigator initialRouteName='Contacts' screenOptions={{ headerShown: false }}>
       <Stack.Screen name='Contacts' component={ContactScreen} />
       <Stack.Screen name='Profile' component={ProfileScreen}
         options={({ route }) => {
@@ -50,7 +50,7 @@ const ContactsScreens = () => {
 const FavoritessScreens = () => {
   return (
 
-    <Stack.Navigator initialRouteName='Favorites'>
+    <Stack.Navigator initialRouteName='Favorites' screenOptions={{ headerShown: false }}>
       <Stack.Screen name='Favorites' component={FavoriteScreen} />
       <Stack.Screen name='Profile' component={ProfileScreen} />
     </Stack.Navigator>
@@ -61,7 +61,7 @@ const FavoritessScreens = () => {
 const AccountScreens = ({ navigation }) => {
   return (
 
-    <Stack.Navigator initialRouteName='Account'>
+    <Stack.Navigator initialRouteName='Account' screenOptions={{ headerShown: false }}>
       <Stack.Screen name='Account' component={AccountScreen}
         options={{
           headerTitle: "Me",
@@ -81,9 +81,10 @@ const AccountScreens = ({ navigation }) => {
   )
 }
 
-// const Drawer = createDrawerNavigator();
+const Drawer = createDrawerNavigator();
 
 const Tab = createMaterialBottomTabNavigator();
+
 export default function App() {
 
   // Demo props 
@@ -106,24 +107,16 @@ export default function App() {
     //Demo Stack Navigation, App Bar
     <PaperProvider>
 
-      {/* <Appbar.Header>
-
-        <Appbar.BackAction />
-        <Appbar.Content title={titleAppbar} />
-        <View>
-          <CustomMenu isVisible={isNavBarVisible} onDismiss={() => setNavBarVisible(false)} />
-        </View>
-        <Appbar.Action icon="menu" onPress={() => setNavBarVisible(true)} />
-
-      </Appbar.Header> */}
-
       <NavigationContainer>
+
+        {/* 
         <Tab.Navigator
           initialRouteName="ContactScreen"
           activeColor="#e91e63"
           barStyle={{ backgroundColor: '#9A86CF' }}
         >
           <Tab.Screen
+
             name="ContactScreen"
             listeners={{
               tabPress: (e) => {
@@ -132,6 +125,7 @@ export default function App() {
             }}
             component={ContactsScreens}
             options={{
+
               tabBarLabel: 'Contacts',
               tabBarIcon: ({ color }) => (
                 <MaterialCommunityIcons name="phone" color={color} size={26} />
@@ -168,11 +162,20 @@ export default function App() {
               ),
             }}
           />
-        </Tab.Navigator>
+        </Tab.Navigator> */}
+
+
+        <Drawer.Navigator
+          initialRouteName="Contact"
+          drawerContent={(props) => <CustomDrawerContent {...props} />}
+        >
+          <Drawer.Screen name="Contact" component={ContactsScreens} />
+          <Drawer.Screen name="Favorite" component={FavoritessScreens} />
+          <Drawer.Screen name="Account" component={AccountScreens} />
+        </Drawer.Navigator>
+
       </NavigationContainer>
-
-
-    </PaperProvider>
+    </PaperProvider >
 
 
     // Demo Style
