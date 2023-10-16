@@ -27,7 +27,7 @@ const Stack = createNativeStackNavigator();
 const ContactsScreens = () => {
   return (
 
-    <Stack.Navigator initialRouteName='Contacts' screenOptions={{ headerShown: false }}>
+    <Stack.Navigator initialRouteName='Contacts' >
       <Stack.Screen name='Contacts' component={ContactScreen} />
       <Stack.Screen name='Profile' component={ProfileScreen}
         options={({ route }) => {
@@ -50,7 +50,7 @@ const ContactsScreens = () => {
 const FavoritessScreens = () => {
   return (
 
-    <Stack.Navigator initialRouteName='Favorites' screenOptions={{ headerShown: false }}>
+    <Stack.Navigator initialRouteName='Favorites' >
       <Stack.Screen name='Favorites' component={FavoriteScreen} />
       <Stack.Screen name='Profile' component={ProfileScreen} />
     </Stack.Navigator>
@@ -61,7 +61,7 @@ const FavoritessScreens = () => {
 const AccountScreens = ({ navigation }) => {
   return (
 
-    <Stack.Navigator initialRouteName='Account' screenOptions={{ headerShown: false }}>
+    <Stack.Navigator initialRouteName='Account' >
       <Stack.Screen name='Account' component={AccountScreen}
         options={{
           headerTitle: "Me",
@@ -109,7 +109,7 @@ export default function App() {
 
       <NavigationContainer>
 
-        {/* 
+
         <Tab.Navigator
           initialRouteName="ContactScreen"
           activeColor="#e91e63"
@@ -162,17 +162,17 @@ export default function App() {
               ),
             }}
           />
-        </Tab.Navigator> */}
+        </Tab.Navigator>
 
 
-        <Drawer.Navigator
+        {/* <Drawer.Navigator
           initialRouteName="Contact"
           drawerContent={(props) => <CustomDrawerContent {...props} />}
         >
           <Drawer.Screen name="Contact" component={ContactsScreens} />
           <Drawer.Screen name="Favorite" component={FavoritessScreens} />
-          <Drawer.Screen name="Account" component={AccountScreens} />
-        </Drawer.Navigator>
+          <Drawer.Screen name="Accounts" component={AccountScreens} />
+        </Drawer.Navigator> */}
 
       </NavigationContainer>
     </PaperProvider >
